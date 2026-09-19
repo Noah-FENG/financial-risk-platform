@@ -1,0 +1,96 @@
+yield,value,count,proportion
+term, 36 months,1609754,71.21
+term, 60 months,650914,28.79
+term,,33,0.0
+grade,B,663557,29.35
+grade,C,650053,28.75
+grade,A,433027,19.15
+grade,D,324424,14.35
+grade,E,135639,6.0
+grade,F,41800,1.85
+grade,G,12168,0.54
+grade,,33,0.0
+sub_grade,C1,145903,6.45
+sub_grade,B5,140288,6.21
+sub_grade,B4,139793,6.18
+sub_grade,B3,131514,5.82
+sub_grade,C2,131116,5.8
+sub_grade,C3,129193,5.71
+sub_grade,C4,127115,5.62
+sub_grade,B2,126621,5.6
+sub_grade,B1,125341,5.54
+sub_grade,C5,116726,5.16
+sub_grade,A5,107617,4.76
+sub_grade,A4,95874,4.24
+sub_grade,A1,86790,3.84
+sub_grade,D1,81787,3.62
+sub_grade,A3,73184,3.24
+sub_grade,D2,72899,3.22
+sub_grade,A2,69562,3.08
+sub_grade,D3,64819,2.87
+sub_grade,D4,56896,2.52
+sub_grade,D5,48023,2.12
+sub_grade,E1,33573,1.49
+sub_grade,E2,29924,1.32
+sub_grade,E3,26708,1.18
+sub_grade,E4,22763,1.01
+sub_grade,E5,22671,1.0
+sub_grade,F1,13413,0.59
+sub_grade,F2,9305,0.41
+sub_grade,F3,7791,0.34
+sub_grade,F4,6124,0.27
+sub_grade,F5,5167,0.23
+sub_grade,G1,4106,0.18
+sub_grade,G2,2688,0.12
+sub_grade,G3,2094,0.09
+sub_grade,G4,1712,0.08
+sub_grade,G5,1568,0.07
+sub_grade,,33,0.0
+emp_length,10+ years,748005,33.09
+emp_length,2 years,203677,9.01
+emp_length,< 1 year,189988,8.4
+emp_length,3 years,180753,8.0
+emp_length,1 year,148403,6.56
+emp_length,,146940,6.5
+emp_length,5 years,139698,6.18
+emp_length,4 years,136605,6.04
+emp_length,6 years,102628,4.54
+emp_length,7 years,92695,4.1
+emp_length,8 years,91914,4.07
+emp_length,9 years,79395,3.51
+home_ownership,MORTGAGE,1111450,49.16
+home_ownership,RENT,894929,39.59
+home_ownership,OWN,253057,11.19
+home_ownership,ANY,996,0.04
+home_ownership,OTHER,182,0.01
+home_ownership,NONE,54,0.0
+home_ownership,,33,0.0
+verification_status,Source Verified,886231,39.2
+verification_status,Not Verified,744806,32.95
+verification_status,Verified,629631,27.85
+verification_status,,33,0.0
+purpose,debt_consolidation,1277877,56.53
+purpose,credit_card,516971,22.87
+purpose,home_improvement,150457,6.66
+purpose,other,139440,6.17
+purpose,major_purchase,50445,2.23
+purpose,medical,27488,1.22
+purpose,small_business,24689,1.09
+purpose,car,24013,1.06
+purpose,vacation,15525,0.69
+purpose,moving,15403,0.68
+purpose,house,14136,0.63
+purpose,wedding,2355,0.1
+purpose,renewable_energy,1445,0.06
+purpose,educational,424,0.02
+purpose,,33,0.0
+loan_status,Fully Paid,1076751,47.63
+loan_status,Current,878317,38.85
+loan_status,Charged Off,268559,11.88
+loan_status,Late (31-120 days),21467,0.95
+loan_status,In Grace Period,8436,0.37
+loan_status,Late (16-30 days),4349,0.19
+loan_status,Does not meet the credit policy. Status:Fully Paid,1988,0.09
+loan_status,Does not meet the credit policy. Status:Charged Off,761,0.03
+loan_status,Default,40,0.0
+loan_status,,33,0.0

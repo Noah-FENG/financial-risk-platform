@@ -1,18 +1,40 @@
-# 数据文件不进版本控制
+# LendingClub source data and derived datasets are rebuilt locally; do not commit them.
 data/raw/
 data/batches/
+data/processed/
 
-# Python
-__pycache__/
-*.pyc
+# Large binary intermediates. Keep small, auditable CSV/text outputs in outcomes/.
+outcomes/*.parquet
+
+# Python environments, bytecode, packaging, and test/tool caches.
 .venv/
+__pycache__/
+*.py[cod]
 *.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+coverage.xml
+htmlcov/
+build/
+dist/
 
-# dbt
+# Jupyter checkpoints only; project notebooks remain versioned.
+.ipynb_checkpoints/
+
+# Local secrets and machine-specific settings. Commit a .env.example if needed.
+.env
+.env.*
+!.env.example
+
+# dbt build artifacts.
 dbt/target/
 dbt/dbt_packages/
 dbt/logs/
 
-# 其他
-.DS_Store
+# Local databases and OS/editor clutter.
 *.duckdb
+.DS_Store
+Thumbs.db
+Desktop.ini
