@@ -1,0 +1,176 @@
+models:
+  - name: dim_loan
+    description: "贷款维度表；一行代表一笔贷款。"
+    columns:
+      - name: loan_id
+        data_tests:
+          - not_null
+          - unique
+      - name: term_months
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [36, 60]
+      - name: grade
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["A", "B", "C", "D", "E", "F", "G"]
+
+  - name: fact_origination
+    description: "贷款发放事实表；一行代表一笔贷款发放。"
+    columns:
+      - name: loan_id
+        data_tests:
+          - not_null
+          - unique
+          - relationships:
+              arguments:
+                to: ref('dim_loan')
+                field: loan_id
+      - name: issue_d
+        data_tests:
+          - not_null
+      - name: issue_month
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: issue_month
+
+  - name: dim_date
+    description: "发放月份维度表；一行代表一个实际出现过的贷款发放月份。"
+    columns:
+      - name: issue_month
+        description: "贷款发放月份键，格式为 YYYY-MM。"
+        data_tests:
+          - not_null
+          - unique
+      - name: month_start_date
+        description: "该月份第一天对应的日期。"
+        data_tests:
+          - not_null
+          - unique
+      - name: year
+        description: "发放年份。"
+        data_tests:
+          - not_null
+      - name: quarter
+        description: "自然季度序号。"
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4]
+      - name: vintage_quarter
+        description: "用于 vintage 分析的季度标签，例如 2015-Q1。"
+        data_tests:
+          - not_null
+
+  - name: dim_borrower
+    description: "贷款申请时的借款人画像；一行代表一笔贷款申请，不用于识别同一个自然人。"
+    columns:
+      - name: loan_id
+        description: "贷款唯一编号，也是申请时画像的主键。"
+        data_tests:
+          - not_null
+          - unique
+          - relationships:
+              arguments:
+                to: ref('dim_loan')
+                field: loan_id
+      - name: annual_inc
+        description: "申请时自报年收入，单位为美元。"
+      - name: emp_length_years
+        description: "清洗后的就业年限；少于一年记为 0.5。"
+      - name: home_ownership
+        description: "申请时房屋所有权状态。"
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["ANY", "MORTGAGE", "NONE", "OTHER", "OWN", "RENT"]
+      - name: addr_state
+        description: "申请时借款人所在州。"
+        data_tests:
+          - not_null
+      - name: dti
+        description: "申请时债务收入比，以百分点表示。"
+      - name: dti_decimal
+        description: "可直接计算的债务收入比小数。"
+      - name: fico_range_low
+        description: "申请时 FICO 区间下限。"
+        data_tests:
+          - not_null
+      - name: fico_range_high
+        description: "申请时 FICO 区间上限。"
+        data_tests:
+          - not_null
+      - name: earliest_cr_line
+        description: "最早信用记录月份。"
+      - name: revol_util
+        description: "申请时循环信用使用率，以百分点表示。"
+      - name: revol_util_decimal
+        description: "可直接计算的循环信用使用率小数。"
+
+  - name: fact_loan_outcome
+    description: >-
+      贷款结果事实表；一行代表一笔贷款。结果来自静态终态快照，不是月度还款面板。
+      snapshot_month 暂按最新还款月份假设为 2019-03-01，因为源文件未明确记录精确快照日期。
+    columns:
+      - name: loan_id
+        description: "贷款唯一编号，也是结果事实表主键。"
+        data_tests:
+          - not_null
+          - unique
+          - relationships:
+              arguments:
+                to: ref('dim_loan')
+                field: loan_id
+      - name: loan_status
+        description: "源数据记录的当前或最终贷款状态。"
+        data_tests:
+          - not_null
+      - name: terminal_outcome
+        description: "核心终态分类；Fully Paid 为 fully_paid，Charged Off 或 Default 为 default，其余为空。"
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["fully_paid", "default"]
+      - name: snapshot_month
+        description: "用于观察期和成熟度判断的假设快照月份。"
+        data_tests:
+          - not_null
+      - name: observation_months
+        description: "从发放月份到假设快照月份的观察月数。"
+        data_tests:
+          - not_null
+      - name: is_matured
+        description: "观察月数是否达到合同期限。"
+        data_tests:
+          - not_null
+      - name: is_pd_eligible
+        description: "是否同时满足已成熟和核心终态条件，可进入基础 PD 样本。"
+        data_tests:
+          - not_null
+      - name: is_censored
+        description: "是否不满足基础 PD 样本条件。"
+        data_tests:
+          - not_null
+      - name: target_default
+        description: "仅对 PD eligible 贷款赋值：违约为 1，完全偿还为 0，其余为空。"
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [0, 1]
+      - name: approx_default_age_months
+        description: "发放月至最后还款月的近似月数，仅用于违约终态；不是真实违约发生时间。"
+      - name: net_recoveries
+        description: "违约后回收金额减去回收费用。"
+      - name: realized_net_principal_loss
+        description: "终态贷款的本金短缺减去净回收，最低为零；不代表净利润。"
+      - name: realized_net_principal_loss_rate
+        description: "realized_net_principal_loss 除以实际出资额；不代表完整投资回报率。"

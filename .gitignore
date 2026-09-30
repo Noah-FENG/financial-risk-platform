@@ -32,6 +32,10 @@ dist/
 dbt/target/
 dbt/dbt_packages/
 dbt/logs/
+dbt/.user.yml
+
+# Local command logs are not portable build evidence.
+logs/
 
 # Local databases and OS/editor clutter.
 *.duckdb

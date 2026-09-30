@@ -1,0 +1,23 @@
+select
+    id as loan_id,
+    annual_inc,
+    emp_length,
+    emp_length_years,
+    home_ownership,
+    verification_status,
+    addr_state,
+    dti,
+    dti_decimal,
+    fico_range_low,
+    fico_range_high,
+    earliest_cr_line,
+    delinq_2yrs,
+    inq_last_6mths,
+    open_acc,
+    pub_rec,
+    revol_bal,
+    revol_util,
+    revol_util_decimal,
+    total_acc,
+    pub_rec_bankruptcies
+from {{ ref('stg_loans') }}
